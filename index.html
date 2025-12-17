@@ -13,6 +13,20 @@
       width: 0;
       height: 0;
     }
+
+    /* slider/video ratio and modal */
+    .ratio-16-9 { position: relative; width: 100%; padding-top: 56.25%; }
+    .ratio-16-9 > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-slide { background-size: cover; background-position: center; min-height: 360px; display:flex; align-items:center; }
+    .hero-overlay { background: linear-gradient(90deg, rgba(0,0,0,0.7), rgba(0,0,0,0.15)); padding: 36px; }
+    .hero-controls .btn { margin-right: 8px; }
+
+    /* modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:50; }
+    .modal-box { width: 90%; max-width: 900px; background: #0b0b0b; border-radius:8px; overflow:hidden; }
+
+    /* platform slider styling */
+    .platform-card { min-width: 120px; height: 64px; background:#111; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:8px; }
   </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden" data-page="home">
@@ -98,62 +112,46 @@
     </button>
   </div>
 
-  <!-- Hero section -->
-  <section id="hero" class="relative w-full h-screen flex items-center justify-start px-6 pt-20 md:pt-24" style="background-size:cover;background-position:center;">
-    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent"></div>
-    <div class="relative z-10 max-w-xl space-y-4">
-      <!-- Logo (approx 100x100) -->
-      <div class="flex items-center mb-4">
-        <div class="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center text-4xl md:text-5xl font-extrabold">
-          T
-        </div>
-      </div>
-      <h1 class="hero-title text-4xl md:text-5xl font-extrabold leading-tight"></h1>
-      <p class="hero-info flex items-center space-x-4 text-sm text-gray-300"></p>
-      <div class="flex items-center space-x-3">
-        <!-- Play button -->
-        <button class="hero-watch-btn flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 3.172l6.364 6.364a1 1 0 010 1.414L10 17.314l-6.364-6.364a1 1 0 010-1.414L10 3.172z" />
-          </svg>
-          <span>Play</span>
-        </button>
-        <!-- Info button -->
-        <button class="hero-info-btn flex items-center border border-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 6h.01" />
-          </svg>
-          <span>Info</span>
-        </button>
-        <!-- Add/Remove button -->
-        <button class="hero-add-btn flex items-center border border-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-          <span>Add</span>
-        </button>
-      </div>
+  <!-- HERO: replaced with carousel-friendly HTML -->
+  <section id="hero" class="relative w-full flex items-center justify-start px-6 pt-20 md:pt-24">
+    <div id="heroSlides" class="w-full overflow-hidden">
+      <!-- slides injected by app.js -->
     </div>
-    <!-- Indicator dots for hero slider -->
-    <div id="hero-indicator" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex"></div>
+
+    <!-- overlay controls & logo (positioned by slide content) -->
+    <div class="absolute inset-x-0 bottom-10 flex justify-center z-20">
+      <div id="heroIndicator" class="flex space-x-2"></div>
+    </div>
   </section>
 
-  <!-- Browse by Platform -->
-  <section class="px-6 py-8">
+  <!-- Platform slider (keeps existing container but add arrows) -->
+  <section class="px-6 py-6">
     <h2 class="text-2xl font-bold mb-4">Browse by Platform</h2>
-    <div id="home-platforms" class="flex overflow-x-auto space-x-4 pb-2"></div>
+    <div class="relative">
+      <div id="platformPrev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center p-2">‹</div>
+      <div id="home-platforms" class="flex overflow-x-auto space-x-4 pb-2"></div>
+      <div id="platformNext" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center p-2">›</div>
+    </div>
   </section>
 
-  <!-- Discover section with filters -->
+  <!-- Popular posts with filters above -->
   <section class="px-6 py-8">
-    <h2 class="text-2xl font-bold mb-4">Discover</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-      <select id="discover-year" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300"></select>
-      <select id="discover-genre" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300"></select>
-      <select id="discover-language" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300"></select>
-      <select id="discover-sort" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300"></select>
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold">Popular</h2>
+      <div class="flex gap-2">
+        <select id="discover-genre" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="discover-year" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="discover-language" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="discover-sort" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300">
+          <option value="popularity.desc">Popularity</option>
+          <option value="year.desc">Year</option>
+        </select>
+      </div>
     </div>
-    <div id="home-discover-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+
+    <div id="home-popular-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+
+    <div id="popularLoader" class="text-center py-6 text-gray-400 hidden">Loading more…</div>
   </section>
 
   <!-- Trending Movies -->
@@ -169,6 +167,14 @@
     <!-- Horizontal scrolling list for trending TV shows -->
     <div id="home-trending-tv" class="flex space-x-4 overflow-x-auto pb-2"></div>
   </section>
+
+  <!-- Trailer modal -->
+  <div id="trailerModal" class="hidden modal-backdrop" aria-hidden="true">
+    <div class="modal-box">
+      <button id="closeTrailer" class="p-3 text-white">✕</button>
+      <div class="ratio-16-9" id="trailerContainer"></div>
+    </div>
+  </div>
 
   <!-- Include the shared script -->
   <script src="app.js"></script>

@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anime – Tmovie Clone</title>
+  <title>Tmovie — Anime</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    ::-webkit-scrollbar { width: 0; height: 0; }
+    /* minimal styles needed for slider and modal */
+    .ratio-16-9 { position: relative; width: 100%; padding-top: 56.25%; }
+    .ratio-16-9 > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .anime-slider { display:flex; gap:12px; overflow-x:auto; padding:12px 6px; }
+    .anime-card { min-width:300px; background:#0b0b0b; border-radius:8px; overflow:hidden; }
+    .anime-thumb { height:170px; object-fit:cover; width:100%; display:block; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:50; }
+    .modal-box { width: 90%; max-width: 900px; background: #0b0b0b; border-radius:8px; overflow:hidden; }
   </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden" data-page="anime">
@@ -14,114 +21,54 @@
   <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 bg-black/70 backdrop-blur-md border-b border-white/10">
     <div class="flex items-center">
       <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
-      <button id="mobileMenuToggle" class="md:hidden ml-3 p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
     </div>
     <ul class="hidden md:flex space-x-2">
-      <li>
-        <a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Home</a>
-      </li>
-      <li>
-        <a href="movies.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a>
-      </li>
-      <li>
-        <a href="tv.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">TV&nbsp;Shows</a>
-      </li>
-      <li>
-        <a href="anime.html" class="flex items-center space-x-1 px-3 py-1 rounded-full bg-red-600 text-white text-sm">Anime</a>
-      </li>
-      <li>
-        <a href="filter.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Filter</a>
-      </li>
-      <li>
-        <a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Platforms</a>
-      </li>
+      <li><a href="index.html" class="px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Home</a></li>
+      <li><a href="movies.html" class="px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a></li>
+      <li><a href="anime.html" class="px-3 py-1 rounded-full bg-red-600 text-white text-sm">Anime</a></li>
+      <!-- ... -->
     </ul>
     <div class="flex items-center space-x-3">
-      <input type="text" id="searchInput" placeholder="Search movies, TV shows…" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400" />
-      <select id="langSelect" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
-        <option value="en-US">EN</option>
-        <option value="hi-IN">HI</option>
-        <option value="ja-JP">JP</option>
-        <option value="es-ES">ES</option>
-        <option value="fr-FR">FR</option>
-      </select>
-      <a href="watchlist.html" class="p-2 rounded-full hover:bg-gray-800" title="Watchlist">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5V19l7-4 7 4V5H5z" />
-        </svg>
-      </a>
-      <button id="themeToggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
-        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      </button>
+      <input type="text" id="searchInput" placeholder="Search anime…" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm"/>
+      <a href="watchlist.html" class="p-2 rounded-full hover:bg-gray-800" title="Watchlist">★</a>
     </div>
   </nav>
 
-  <!-- Mobile navigation menu -->
-  <div id="mobileMenu" class="md:hidden hidden fixed top-16 left-0 right-0 bg-black/90 backdrop-blur-md z-40 border-b border-white/10 px-6 py-4 space-y-3">
-    <a href="index.html" class="block py-2">Home</a>
-    <a href="movies.html" class="block py-2">Movies</a>
-    <a href="tv.html" class="block py-2">TV Shows</a>
-    <a href="anime.html" class="block py-2">Anime</a>
-    <a href="filter.html" class="block py-2">Filter</a>
-    <a href="platforms.html" class="block py-2">Platforms</a>
-    <a href="watchlist.html" class="block py-2">Watchlist</a>
-    <button id="mobileThemeToggle" class="flex items-center py-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-      <span>Theme</span>
-    </button>
-  </div>
+  <main class="pt-28 px-6">
+    <!-- Top popular slider -->
+    <section class="mb-6">
+      <h1 class="text-2xl font-bold mb-3">Popular Anime</h1>
+      <div id="animeSlider" class="anime-slider"></div>
+    </section>
 
-  <!-- Hero section -->
-  <section id="hero" class="relative w-full h-[70vh] flex items-center justify-start px-6 pt-20 md:pt-24" style="background-size:cover;background-position:center;">
-    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent"></div>
-    <div class="relative z-10 max-w-xl space-y-4">
-      <h1 class="hero-title text-4xl md:text-5xl font-extrabold leading-tight"></h1>
-      <p class="hero-info flex items-center space-x-4 text-sm text-gray-300"></p>
-      <div class="flex items-center space-x-3">
-        <!-- Play button -->
-        <button class="hero-watch-btn flex items-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 3.172l6.364 6.364a1 1 0 010 1.414L10 17.314l-6.364-6.364a1 1 0 010-1.414L10 3.172z" />
-          </svg>
-          <span>Play</span>
-        </button>
-        <!-- Info button -->
-        <button class="hero-info-btn flex items-center border border-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 6h.01" />
-          </svg>
-          <span>Info</span>
-        </button>
-        <!-- Add/Remove button -->
-        <button class="hero-add-btn flex items-center border border-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-          <span>Add</span>
-        </button>
+    <!-- Filters -->
+    <section class="mb-6 flex items-center justify-between">
+      <div class="flex gap-2">
+        <select id="anime-genre" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="anime-year" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="anime-language" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300"></select>
+        <select id="anime-sort" class="bg-gray-800 border border-gray-600 rounded px-2 py-2 text-sm text-gray-300">
+          <option value="popularity.desc">Popularity</option>
+          <option value="year.desc">Year</option>
+        </select>
       </div>
+      <div class="text-sm text-gray-400">Scroll to load more</div>
+    </section>
+
+    <!-- Grid -->
+    <section>
+      <div id="anime-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+      <div id="animeLoader" class="text-center py-6 text-gray-400 hidden">Loading more…</div>
+    </section>
+  </main>
+
+  <!-- Trailer modal (reused) -->
+  <div id="trailerModal" class="hidden modal-backdrop" aria-hidden="true">
+    <div class="modal-box">
+      <button id="closeTrailer" class="p-3 text-white">✕</button>
+      <div class="ratio-16-9" id="trailerContainer"></div>
     </div>
-  </section>
-
-  <!-- Popular This Season -->
-  <section class="px-6 py-8">
-    <h2 class="text-2xl font-bold mb-4">Popular This Season</h2>
-    <div id="anime-popular" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"></div>
-  </section>
-
-  <!-- Top Rated All Time -->
-  <section class="px-6 py-8">
-    <h2 class="text-2xl font-bold mb-4">Top Rated All Time</h2>
-    <div id="anime-top-rated" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"></div>
-  </section>
+  </div>
 
   <script src="app.js"></script>
 </body>
