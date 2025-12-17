@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platforms – Tmovie Clone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar { width: 0; height: 0; }
+  </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden" data-page="platforms">
+  <!-- Navigation bar -->
+  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 bg-black/70 backdrop-blur-md border-b border-white/10">
+    <!-- Brand name and mobile menu toggle -->
+    <div class="flex items-center">
+      <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
+      <!-- Mobile menu toggle button -->
+      <button id="mobileMenuToggle" class="md:hidden ml-3 p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Desktop navigation links -->
+    <ul class="hidden md:flex space-x-2">
+      <li>
+        <a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Home</a>
+      </li>
+      <li>
+        <a href="movies.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a>
+      </li>
+      <li>
+        <a href="tv.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">TV&nbsp;Shows</a>
+      </li>
+      <li>
+        <a href="anime.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Anime</a>
+      </li>
+      <li>
+        <a href="filter.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Filter</a>
+      </li>
+      <li>
+        <!-- Highlight the current page -->
+        <a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full bg-red-600 text-white text-sm">Platforms</a>
+      </li>
+    </ul>
+    <!-- Actions on the right -->
+    <div class="flex items-center space-x-3">
+      <input type="text" id="searchInput" placeholder="Search movies, TV shows…" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400" />
+      <select id="langSelect" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
+        <option value="en-US">EN</option>
+        <option value="hi-IN">HI</option>
+        <option value="ja-JP">JP</option>
+        <option value="es-ES">ES</option>
+        <option value="fr-FR">FR</option>
+      </select>
+      <a href="watchlist.html" class="p-2 rounded-full hover:bg-gray-800" title="Watchlist">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5V19l7-4 7 4V5H5z" />
+        </svg>
+      </a>
+      <button id="themeToggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
+        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile navigation menu -->
+  <div id="mobileMenu" class="md:hidden hidden fixed top-16 left-0 right-0 bg-black/90 backdrop-blur-md z-40 border-b border-white/10 px-6 py-4 space-y-3">
+    <a href="index.html" class="block py-2">Home</a>
+    <a href="movies.html" class="block py-2">Movies</a>
+    <a href="tv.html" class="block py-2">TV Shows</a>
+    <a href="anime.html" class="block py-2">Anime</a>
+    <a href="filter.html" class="block py-2">Filter</a>
+    <a href="platforms.html" class="block py-2">Platforms</a>
+    <a href="watchlist.html" class="block py-2">Watchlist</a>
+    <button id="mobileThemeToggle" class="flex items-center py-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <span>Theme</span>
+    </button>
+  </div>
+
+  <!-- Platform selection -->
+  <section class="px-6 pt-24 pb-8">
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">Choose Your Platform</h1>
+    <p class="text-gray-400 mb-6">Select a streaming service to browse its content</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <!-- Define a set of platform cards with placeholders.  We avoid using official logos. -->
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Netflix</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Disney+</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Prime&nbsp;Video</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Max</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Apple&nbsp;TV+</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Hulu</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Paramount+</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Peacock</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Starz</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Showtime</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>AMC+</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Discovery+</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Crunchyroll</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Pluto&nbsp;TV</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Vudu</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Roku&nbsp;Channel</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Mubi</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors">
+        <div class="h-16 w-16 bg-gray-700 rounded mb-2"></div>
+        <span>Shudder</span>
+      </a>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
