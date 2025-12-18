@@ -1,39 +1,17 @@
-// app.js
-
-/*
- * This script powers the Tmovie clone.  It centralizes all API calls to
- * The Movie Database (TMDB) and implements small helpers to render
- * interactive pages such as the home page, movies page, TV shows page,
- * anime page, filter page, watchlist, detail pages, and watch pages.  The
- * goal is to replicate the look and feel of the original Tmovie site in
- * pure HTML, Tailwind CSS and vanilla JavaScript without copying any
- * proprietary assets.  All data comes from the official TMDB API.
- */
-
-// -----------------------------------------------------------------------------
-// Configuration constants
-// -----------------------------------------------------------------------------
-// User‑provided TMDB API key.  If you intend to publish this project you
-// should proxy requests through a backend to avoid exposing your key.
 const API_KEY = 'fed86956458f19fb45cdd382b6e6de83';
 const API_BASE = 'https://api.themoviedb.org/3';
 // Base paths for images.  Original gives the highest resolution and w500 a
 // reasonable size for posters.
-const IMG_ORIGINAL = 'https://image.tmdb.org/t/p/original';
+const IMG_ORIGINAL = 'https://image.tmdb.org/t/p/w780';
 const IMG_W500 = 'https://image.tmdb.org/t/p/w500';
 
-// -----------------------------------------------------------------------------
-// Streaming servers
-//
-// A curated list of third‑party streaming servers.  Each server entry defines
-// separate URLs for movies and TV shows.  The placeholders {tmdb_id},
-// {imdb_id}, {season} and {episode} will be replaced at runtime in
-// initWatchPage based on the content type and query parameters.  Servers of
-// type "tmdb" accept a TMDB ID, whereas servers of type "imdb" require an
-// IMDb ID.  If the required identifier is unavailable for a given title,
-// that server is omitted from the list of playable sources.
 const SERVERS = [
   {
+    name: '1xbet',
+    type: 'imdb',
+    url: 'https://kalis393fev.com/play/{imdb_id}',
+    url_tv: 'https://kalis393fev.com/play/{imdb_id}',
+  },  {
     name: 'Vidify',
     type: 'tmdb',
     url: 'https://vidify.top/embed/movie/{tmdb_id}',
@@ -51,12 +29,7 @@ const SERVERS = [
     url: 'https://autoembed.co/movie/tmdb/{tmdb_id}',
     url_tv: 'https://autoembed.co/tv/tmdb/{tmdb_id}-{season}-{episode}',
   },
-  {
-    name: '1xbet',
-    type: 'imdb',
-    url: 'https://dezzu370xol.com/play/{imdb_id}',
-    url_tv: 'https://dezzu370xol.com/play/{imdb_id}',
-  },
+
   {
     name: 'vid vip',
     type: 'imdb',
@@ -532,44 +505,6 @@ function isInWatchlist(id, type) {
   return getWatchlist().some((entry) => entry.id == id && entry.type === type);
 }
 
-// -----------------------------------------------------------------------------
-// Theme toggling
-// -----------------------------------------------------------------------------
-
-/**
- * Enable dark/light theme switching.  The dark theme is default.  Toggling
- * swaps background and text colors on the body and updates the theme icon.
- */
-function setupThemeToggle() {
-  const themeToggleButton = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  if (!themeToggleButton || !themeIcon) return;
-  themeToggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('bg-black');
-    document.body.classList.toggle('text-white');
-    document.body.classList.toggle('bg-white');
-    document.body.classList.toggle('text-black');
-    const isDark = document.body.classList.contains('bg-black');
-    if (isDark) {
-      // Show sun icon
-      themeIcon.innerHTML = `
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      `;
-    } else {
-      // Show moon icon
-      themeIcon.innerHTML = `
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
-      `;
-    }
-  });
-}
-
-/**
- * Initialize the language selector.  Reads the saved language from
- * localStorage and updates the select element.  When the user changes
- * language, the value is stored and the page reloads to fetch new
- * localized data.
- */
 function setupLanguageSelector() {
   const select = document.getElementById('langSelect');
   if (!select) return;
@@ -976,8 +911,8 @@ function renderRatingRing(voteAvg) {
   // circle (12×12) and bump the font size up to improve legibility on
   // mobile, mirroring the design shown in the provided screenshots.
   return `
-    <div class="absolute top-2 left-2 w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold"
-      style="border: 2px solid ${color}; color: ${color};">
+    <div class="absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+      style="border: 3px solid ${color}; color: ${color};">
       <span>${voteAvg}</span>
     </div>
   `;
@@ -1044,7 +979,7 @@ function renderHero(hero, item, type) {
       ${voteAvg}
     </span>
     <span>${year}</span>
-    <span class="text-green-400">85% match</span>
+   
   `;
   // Add event listeners to watch, info and add buttons
   const watchBtn = hero.querySelector('.hero-watch-btn');
@@ -1108,7 +1043,7 @@ async function initHomePage() {
   ]);
 
   // Set up hero slider: we'll display first 5 movies and rotate every 6s
-  const slides = movies.slice(0, 5);
+  const slides = movies.slice(0, 15);
   let currentSlide = 0;
   function renderSlide(index) {
     const item = slides[index];
@@ -1136,7 +1071,7 @@ async function initHomePage() {
   setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     renderSlide(currentSlide);
-  }, 6000);
+  }, 3000);
 
   // Render trending movie and TV rows (horizontal)
   renderHorizontalRow(movieGrid, movies.slice(0, 10), 'movie');
@@ -1188,7 +1123,7 @@ async function initHomeDiscover() {
   });
   // Populate languages (ISO codes).  This list covers a few common languages.
   const languages = [
-    { code: '', name: 'Language' },
+    { code: 'hi', name: 'Language' },
     { code: 'en', name: 'English' },
     { code: 'hi', name: 'Hindi' },
     { code: 'ja', name: 'Japanese' },
@@ -1304,10 +1239,10 @@ async function initMoviesPage() {
   const sciFiRow = document.getElementById('movies-sci-fi');
 
   // Show skeletons while fetching data
-  if (actionRow) showSkeletons(actionRow, 5, 'horizontal');
-  if (comedyRow) showSkeletons(comedyRow, 5, 'horizontal');
-  if (dramaRow) showSkeletons(dramaRow, 5, 'horizontal');
-  if (sciFiRow) showSkeletons(sciFiRow, 5, 'horizontal');
+  if (actionRow) showSkeletons(actionRow, 15, 'horizontal');
+  if (comedyRow) showSkeletons(comedyRow, 15, 'horizontal');
+  if (dramaRow) showSkeletons(dramaRow, 15, 'horizontal');
+  if (sciFiRow) showSkeletons(sciFiRow, 15, 'horizontal');
 
   try {
     // Fetch a list of popular movies to pick a hero slide
@@ -1324,10 +1259,10 @@ async function initMoviesPage() {
       discoverContent('movie', { with_genres: 878 }),
     ]);
     // Render horizontal rows with the first few items of each category
-    if (actionRow) renderHorizontalRow(actionRow, actionMovies.slice(0, 10), 'movie');
-    if (comedyRow) renderHorizontalRow(comedyRow, comedyMovies.slice(0, 10), 'movie');
-    if (dramaRow) renderHorizontalRow(dramaRow, dramaMovies.slice(0, 10), 'movie');
-    if (sciFiRow) renderHorizontalRow(sciFiRow, sciFiMovies.slice(0, 10), 'movie');
+    if (actionRow) renderHorizontalRow(actionRow, actionMovies.slice(0, 15), 'movie');
+    if (comedyRow) renderHorizontalRow(comedyRow, comedyMovies.slice(0, 15), 'movie');
+    if (dramaRow) renderHorizontalRow(dramaRow, dramaMovies.slice(0, 15), 'movie');
+    if (sciFiRow) renderHorizontalRow(sciFiRow, sciFiMovies.slice(0, 14), 'movie');
   } catch (err) {
     console.error(err);
   }
@@ -1342,8 +1277,8 @@ async function initTvPage() {
   const topRow = document.getElementById('tv-top-rated');
 
   // Show skeleton placeholders for horizontal rows
-  if (popularRow) showSkeletons(popularRow, 5, 'horizontal');
-  if (topRow) showSkeletons(topRow, 5, 'horizontal');
+  if (popularRow) showSkeletons(popularRow, 10, 'horizontal');
+  if (topRow) showSkeletons(topRow, 10, 'horizontal');
 
   try {
     const [popularShows, topShows] = await Promise.all([
@@ -1394,8 +1329,8 @@ async function initAnimePage() {
     if (animePopular && animePopular.length) {
       renderHero(hero, animePopular[0], 'tv');
     }
-    if (popularRow) renderHorizontalRow(popularRow, animePopular.slice(0, 10), 'tv');
-    if (topRow) renderHorizontalRow(topRow, animeTop.slice(0, 10), 'tv');
+    if (popularRow) renderHorizontalRow(popularRow, animePopular.slice(0, 20), 'tv');
+    if (topRow) renderHorizontalRow(topRow, animeTop.slice(0, 20), 'tv');
   } catch (err) {
     console.error(err);
   }
@@ -2020,59 +1955,7 @@ async function initWatchPage() {
  * search page from TorrentGalaxy.  Provides a sandbox toggle for
  * security.  The iframe is rendered with a 16:9 aspect ratio.
  */
-async function initTorrentPage() {
-  const params = new URLSearchParams(window.location.search);
-  const type = params.get('type');
-  const id = params.get('id');
-  if (!type || !id) return;
-  const titleEl = document.getElementById('torrent-title');
-  const player = document.getElementById('torrent-player');
-  const sandboxToggle = document.getElementById('torrent-sandbox-toggle');
-  const sandboxLabel = document.getElementById('torrent-sandbox-label');
-  try {
-    const details = await getDetails(type, id);
-    const title = details.title || details.name || 'Unknown';
-    titleEl.textContent = title;
-    // Determine IMDb ID from external IDs or direct property
-    let imdbId = null;
-    if (details.external_ids && details.external_ids.imdb_id) {
-      imdbId = details.external_ids.imdb_id;
-    } else if (details.imdb_id) {
-      imdbId = details.imdb_id;
-    }
-    if (!imdbId) {
-      player.innerHTML = '<div class="text-center p-8">No IMDb ID available to fetch torrents.</div>';
-      return;
-    }
-    const url = `https://torrentgalaxy.one/get-posts/keywords:${imdbId}`;
-    // Helper to render iframe with optional sandbox
-    const renderFrame = () => {
-      const sandboxAttr = sandboxToggle && sandboxToggle.checked
-        ? ' sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation"'
-        : '';
-      player.innerHTML = `<iframe class="absolute inset-0 w-full h-full" src="${url}" frameborder="0"${sandboxAttr}></iframe>`;
-    };
-    // Initialize sandbox toggle and icon
-    if (sandboxToggle) {
-      const updateSandboxIcon = () => {
-        if (sandboxLabel) {
-          sandboxLabel.innerHTML = sandboxToggle.checked
-            ? '<i class="fa-solid fa-shield-alt"></i>'
-            : '<i class="fa-regular fa-square"></i>';
-        }
-      };
-      sandboxToggle.onchange = () => {
-        renderFrame();
-        updateSandboxIcon();
-      };
-      // Set initial icon and frame
-      updateSandboxIcon();
-    }
-    renderFrame();
-  } catch (err) {
-    console.error(err);
-  }
-}
+
 
 /**
  * Initialize the search page.  Expects a `query` parameter.  Displays

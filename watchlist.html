@@ -12,50 +12,69 @@
   </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden" data-page="watchlist">
-  <!-- Navigation bar -->
-  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 bg-black/70 backdrop-blur-md border-b border-white/10">
-    <!-- Brand and mobile toggle -->
-    <div class="flex items-center">
-      <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
-      <button id="mobileMenuToggle" class="md:hidden ml-3 p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
+ <nav class="fixed top-0  bg-black/20 inset-x-0 z-50 flex items-center justify-between px-3 py-2  border-b border-white/10">
+    <!-- Brand name and mobile menu toggle -->
+    <button id="mobileMenuToggle" class="md:hidden  p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
+       <div class="flex items-center">
+      <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
+      <!-- Mobile menu toggle button -->
+     
     </div>
-    <!-- Desktop nav links -->
+    <!-- Navigation links -->
     <ul class="hidden md:flex space-x-2">
-      <li><a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Home</a></li>
-      <li><a href="movies.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a></li>
-      <li><a href="tv.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">TV&nbsp;Shows</a></li>
-      <li><a href="anime.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Anime</a></li>
-      <li><a href="filter.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Filter</a></li>
-      <li><a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Platforms</a></li>
+      <li>
+        <a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full bg-red-600 text-white text-sm">Home</a>
+      </li>
+      <li>
+        <a href="movies.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a>
+      </li>
+      <li>
+        <a href="tv.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">TV&nbsp;Shows</a>
+      </li>
+      <li>
+        <a href="anime.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Anime</a>
+      </li>
+      <li>
+        <a href="filter.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Filter</a>
+      </li>
+      <li>
+        <a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Platforms</a>
+      </li>
     </ul>
-    <!-- Right actions -->
+    <!-- Search bar and actions on the right -->
     <div class="flex items-center space-x-3">
-      <input type="text" id="searchInput" placeholder="Search movies, TV shows…" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400" />
-      <!-- Mobile search button -->
+      <!-- Search bar -->
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search movies, TV shows…"
+        class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400"
+      />
+      <!-- Mobile search icon -->
       <button id="mobileSearchBtn" class="md:hidden p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Search">
         <i class="fa-solid fa-search"></i>
       </button>
-      <select id="langSelect" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
+   <a href="filter.html" class="block py-2"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="#00ffd5" d="M8 0C3.582 0 0 1.119 0 2.5V4l6 6v5c0 .552.895 1 2 1s2-.448 2-1v-5l6-6V2.5C16 1.119 12.418 0 8 0M1.475 2.169c.374-.213.9-.416 1.52-.586C4.369 1.207 6.147 1 8 1s3.631.207 5.005.583c.62.17 1.146.372 1.52.586c.247.141.38.26.442.331c-.062.071-.195.19-.442.331c-.374.213-.9.416-1.52.586C11.631 3.793 9.853 4 8 4s-3.631-.207-5.005-.583c-.62-.17-1.146-.372-1.52-.586a1.7 1.7 0 0 1-.442-.331c.062-.071.195-.19.442-.331"/></svg></a>  
+      <!-- Language selector -->
+      <select id="langSelect" class=" md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
         <option value="en-US">EN</option>
         <option value="hi-IN">HI</option>
         <option value="ja-JP">JP</option>
         <option value="es-ES">ES</option>
         <option value="fr-FR">FR</option>
       </select>
+      <!-- Watchlist link -->
       <a href="watchlist.html" class="p-2 rounded-full hover:bg-gray-800" title="Watchlist">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5V19l7-4 7 4V5H5z" />
         </svg>
       </a>
-      <button id="themeToggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
-        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      </button>
+      <!-- Theme toggle button -->
+    
     </div>
   </nav>
 

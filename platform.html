@@ -7,21 +7,22 @@
 </head>
 <body class="bg-black text-white overflow-x-hidden" data-page="platforms">
   <!-- Navigation bar -->
-  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-4 bg-black/70 backdrop-blur-md border-b border-white/10">
+ <nav class="fixed top-0  bg-black/20 inset-x-0 z-50 flex items-center justify-between px-3 py-2  border-b border-white/10">
     <!-- Brand name and mobile menu toggle -->
-    <div class="flex items-center">
-      <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
-      <!-- Mobile menu toggle button -->
-      <button id="mobileMenuToggle" class="md:hidden ml-3 p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
+    <button id="mobileMenuToggle" class="md:hidden  p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Toggle menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
+       <div class="flex items-center">
+      <a href="index.html" class="text-2xl font-bold tracking-wide select-none">Tmovie</a>
+      <!-- Mobile menu toggle button -->
+     
     </div>
-    <!-- Desktop navigation links -->
+    <!-- Navigation links -->
     <ul class="hidden md:flex space-x-2">
       <li>
-        <a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Home</a>
+        <a href="index.html" class="flex items-center space-x-1 px-3 py-1 rounded-full bg-red-600 text-white text-sm">Home</a>
       </li>
       <li>
         <a href="movies.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Movies</a>
@@ -36,36 +37,42 @@
         <a href="filter.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Filter</a>
       </li>
       <li>
-        <!-- Highlight the current page -->
-        <a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full bg-red-600 text-white text-sm">Platforms</a>
+        <a href="platforms.html" class="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-700 text-sm">Platforms</a>
       </li>
     </ul>
-    <!-- Actions on the right -->
+    <!-- Search bar and actions on the right -->
     <div class="flex items-center space-x-3">
-      <input type="text" id="searchInput" placeholder="Search movies, TV shows…" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400" />
-      <!-- Mobile search button -->
+      <!-- Search bar -->
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search movies, TV shows…"
+        class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 placeholder-gray-400"
+      />
+      <!-- Mobile search icon -->
       <button id="mobileSearchBtn" class="md:hidden p-2 rounded-full hover:bg-gray-800 focus:outline-none" aria-label="Search">
         <i class="fa-solid fa-search"></i>
       </button>
-      <select id="langSelect" class="hidden md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
+   <a href="filter.html" class="block py-2"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="#00ffd5" d="M8 0C3.582 0 0 1.119 0 2.5V4l6 6v5c0 .552.895 1 2 1s2-.448 2-1v-5l6-6V2.5C16 1.119 12.418 0 8 0M1.475 2.169c.374-.213.9-.416 1.52-.586C4.369 1.207 6.147 1 8 1s3.631.207 5.005.583c.62.17 1.146.372 1.52.586c.247.141.38.26.442.331c-.062.071-.195.19-.442.331c-.374.213-.9.416-1.52.586C11.631 3.793 9.853 4 8 4s-3.631-.207-5.005-.583c-.62-.17-1.146-.372-1.52-.586a1.7 1.7 0 0 1-.442-.331c.062-.071.195-.19.442-.331"/></svg></a>  
+      <!-- Language selector -->
+      <select id="langSelect" class=" md:block bg-gray-800/80 border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring focus:ring-red-500 text-gray-300">
         <option value="en-US">EN</option>
         <option value="hi-IN">HI</option>
         <option value="ja-JP">JP</option>
         <option value="es-ES">ES</option>
         <option value="fr-FR">FR</option>
       </select>
+      <!-- Watchlist link -->
       <a href="watchlist.html" class="p-2 rounded-full hover:bg-gray-800" title="Watchlist">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5V19l7-4 7 4V5H5z" />
         </svg>
       </a>
-      <button id="themeToggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
-        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.657-9.657h-1M4.343 12.343h-1m12.02 5.657l-.707-.707M6.343 6.343l-.707-.707m12.02 12.02l-.707-.707M6.343 17.657l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      </button>
+      <!-- Theme toggle button -->
+    
     </div>
   </nav>
+
 
   <!-- Mobile navigation menu -->
   <div id="mobileMenu" class="md:hidden hidden fixed top-16 left-0 right-0 bg-black/90 backdrop-blur-md z-40 border-b border-white/10 px-6 py-4 space-y-3">
@@ -85,244 +92,208 @@
   </div>
   
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Platform</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Movie App</title>
 <style>
-/* ========= BASE ========= */
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI;
-  background:#020617;
-  color:#fff;
-}
+    /* ========= BASE ========= */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI; background: #020617; color: #fff; }
 
-/* ========= HEADER ========= */
-.dk-header{
-  padding:18px;
-  font-size:22px;
-  font-weight:700;
-  position:sticky;
-  top:0;
-  z-index:9;
-  background:rgba(2,6,23,.9);
-  backdrop-filter:blur(8px);
-}
+    /* ========= HEADER ========= */
+    .dk-header {
+        padding: 18px; font-size: 22px; font-weight: 700; margin-top: 20px;
+        background: rgba(2, 6, 23, .9); position: sticky; top: 0; z-index: 50;
+        backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b;
+    }
 
-/* ========= TABS ========= */
-.dk-tabs{
-  display:flex;
-  gap:12px;
-  padding:14px 18px;
-}
+    /* ========= TABS ========= */
+    .dk-tabs { display: flex; gap: 12px; padding: 14px 18px; overflow-x: auto; }
+    .dk-tab {
+        padding: 8px 18px; border-radius: 30px; background: #0f172a;
+        cursor: pointer; position: relative; overflow: hidden; white-space: nowrap;
+        border: 1px solid #1e293b; color: #94a3b8; font-size: 14px;
+    }
+    .dk-tab.active { background: #020617; color: #fff; border-color: #6366f1; }
+    /* Glow effect on active tab */
+    .dk-tab.active::before {
+        content: ""; position: absolute; inset: 0; border-radius: 30px; padding: 1.5px;
+        background: linear-gradient(120deg, #6366f1, #22d3ee, #a855f7);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor; mask-composite: exclude;
+    }
 
-.dk-tab{
-  padding:8px 18px;
-  border-radius:30px;
-  background:#0f172a;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-}
+    /* ========= GRID ========= */
+    .dk-grid {
+        padding: 18px; display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjusted for mobile */
+        gap: 16px;
+    }
 
-.dk-tab::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:30px;
-  padding:1.5px;
-  background:linear-gradient(120deg,#6366f1,#22d3ee,#a855f7);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:.2;
-}
+    /* ========= CARD (Arcane Style) ========= */
+    .dk-card {
+        position: relative; border-radius: 12px; overflow: hidden;
+        background: #0f172a; cursor: pointer; transition: .3s;
+        aspect-ratio: 2/3; /* Enforces poster shape */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+    
+    .dk-card:hover { transform: scale(1.03); z-index: 10; }
 
-.dk-tab.active{
-  background:#020617;
-}
+    .dk-card img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+    }
 
-.dk-tab.active::before{
-  opacity:1;
-  animation:glow 3s linear infinite;
-}
+    /* Dark Gradient Overlay at Bottom */
+    .dk-card::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(2,6,23, 1) 0%, rgba(2,6,23, 0.6) 30%, transparent 60%);
+    }
 
-@keyframes glow{
-  from{filter:hue-rotate(0deg)}
-  to{filter:hue-rotate(360deg)}
-}
+    /* Title Styling */
+    .dk-card-content {
+        position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; z-index: 2;
+    }
+    .dk-card-title {
+        font-size: 14px; font-weight: 600; line-height: 1.3;
+        color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
 
-/* ========= GRID ========= */
-.dk-grid{
-  padding:18px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:16px;
-}
+    /* ========= RATING BADGE (Top Left) ========= */
+    .dk-rating {
+        position: absolute; top: 8px; left: 8px; z-index: 5;
+        width: 36px; height: 36px; border-radius: 50%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 12px; font-weight: 700; color: #fff;
+        backdrop-filter: blur(4px);
+    }
+    /* The Green Ring */
+    .dk-rating svg {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        transform: rotate(-90deg);
+    }
+    .dk-rating circle {
+        fill: none; stroke-width: 3; stroke-linecap: round;
+    }
+    .dk-rating-bg { stroke: rgba(255,255,255,0.2); }
+    .dk-rating-val { stroke: #22c55e; /* Green color like screenshot */ stroke-dasharray: 100; stroke-dashoffset: 20; }
 
-/* ========= CARD ========= */
-.dk-card{
-  position:relative;
-  border-radius:16px;
-  overflow:hidden;
-  background:#0f172a;
-  cursor:pointer;
-  transition:.35s;
-}
-
-.dk-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  padding:1.5px;
-  border-radius:16px;
-  background:linear-gradient(140deg,#6366f1,#22d3ee,#a855f7);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:.15;
-}
-
-.dk-card:hover{
-  transform:translateY(-6px) scale(1.04);
-  box-shadow:0 20px 40px rgba(99,102,241,.35);
-}
-
-.dk-card:hover::before{
-  opacity:1;
-  animation:glow 3s linear infinite;
-}
-
-.dk-card img{
-  width:100%;
-  aspect-ratio:2/3;
-  object-fit:cover;
-}
-
-.dk-card-title{
-  padding:10px;
-  font-size:14px;
-  line-height:1.2;
-}
-
-/* ========= LOADER ========= */
-.dk-loader{
-  text-align:center;
-  padding:20px;
-  color:#94a3b8;
-}
+    /* ========= LOADER ========= */
+    .dk-loader { text-align: center; padding: 40px; color: #94a3b8; font-size: 14px; }
 </style>
 </head>
-
 <body>
 
-<div class="dk-header" id="pageTitle">Platform</div>
+    <div class="dk-header" id="pageTitle">Browse Movies</div>
 
-<div class="dk-tabs">
-  <div class="dk-tab active" onclick="switchTab('movie',this)">Movies</div>
-  <div class="dk-tab" onclick="switchTab('tv',this)">TV Shows</div>
-</div>
+    <div class="dk-tabs">
+        <div class="dk-tab active" onclick="switchTab('movie', this)">Movies</div>
+        <div class="dk-tab" onclick="switchTab('tv', this)">TV Shows</div>
+    </div>
 
-<div id="contentGrid" class="dk-grid"></div>
-<div id="loader" class="dk-loader">Loading...</div>
+    <div class="dk-grid" id="contentGrid"></div>
+    <div class="dk-loader" id="loader">Loading...</div>
 
 <script>
-const API = "fed86956458f19fb45cdd382b6e6de83";
-const q = new URLSearchParams(location.search);
+    const API = "fed86956458f19fb45cdd382b6e6de83"; // Your Key
+    const q = new URLSearchParams(location.search);
+    const PROVIDER = q.get("provider") || 8; 
+    const NAME = q.get("name") || "Browse Platform";
+    
+    let CURRENT_TYPE = "movie";
+    let PAGE = 1;
+    let LOADING = false;
+    
+    const grid = document.getElementById("contentGrid");
+    const loader = document.getElementById("loader");
+    document.getElementById("pageTitle").innerText = NAME;
 
-const PROVIDER = q.get("provider") || 8; // fallback Netflix
-const NAME = q.get("name") || "Platform";
+    /* ---------- SWITCH TAB ---------- */
+    function switchTab(type, el) {
+        if (CURRENT_TYPE === type) return;
+        document.querySelectorAll(".dk-tab").forEach(t => t.classList.remove("active"));
+        el.classList.add("active");
+        CURRENT_TYPE = type;
+        PAGE = 1;
+        grid.innerHTML = "";
+        loadMore();
+    }
 
-let CURRENT_TYPE = "movie";
-let PAGE = 1;
-let LOADING = false;
+    /* ---------- LOAD DATA ---------- */
+    function loadMore() {
+        if (LOADING) return;
+        LOADING = true;
+        loader.style.display = "block";
 
-const grid = document.getElementById("contentGrid");
-const loader = document.getElementById("loader");
+        const url = `https://api.themoviedb.org/3/discover/${CURRENT_TYPE}` +
+            `?api_key=${API}` +
+            `&with_watch_providers=${PROVIDER}` +
+            `&with_watch_monetization_types=flatrate` +
+            `&watch_region=IN` +
+            `&sort_by=popularity.desc` +
+            `&page=${PAGE}`;
 
-document.getElementById("pageTitle").innerText = NAME;
+        fetch(url)
+            .then(r => r.json())
+            .then(d => {
+                if (!d.results || !d.results.length) {
+                    loader.innerText = "No more results";
+                    return;
+                }
 
-/* ---------- SWITCH TAB ---------- */
-function switchTab(type, el){
-  if (CURRENT_TYPE === type) return;
+                d.results.forEach(x => {
+                    if (!x.poster_path) return;
 
-  document.querySelectorAll(".dk-tab").forEach(t=>t.classList.remove("active"));
-  el.classList.add("active");
+                    // Calculate Rating for the circle
+                    const rating = x.vote_average ? x.vote_average.toFixed(1) : "0.0";
+                    const ratingPercent = (x.vote_average * 10); // for stroke offset
+                    const offset = 100 - ratingPercent; 
 
-  CURRENT_TYPE = type;
-  PAGE = 1;
-  grid.innerHTML = "";
-  loadMore();
-}
+                    const card = document.createElement("div");
+                    card.className = "dk-card";
+                    
+                    card.innerHTML = `
+                        <div class="dk-rating">
+                            <svg viewBox="0 0 36 36">
+                                <circle class="dk-rating-bg" cx="18" cy="18" r="15.5"></circle>
+                                <circle class="dk-rating-val" cx="18" cy="18" r="15.5" stroke-dashoffset="${offset}"></circle>
+                            </svg>
+                            <span>${rating}</span>
+                        </div>
+                        <img src="https://image.tmdb.org/t/p/w342${x.poster_path}" loading="lazy" alt="${x.title || x.name}">
+                        <div class="dk-card-content">
+                            <div class="dk-card-title">${x.title || x.name}</div>
+                        </div>
+                    `;
+                    
+                    card.onclick = () => location.href = `details.html?type=${CURRENT_TYPE}&id=${x.id}`;
+                    grid.appendChild(card);
+                });
 
-/* ---------- LOAD DATA ---------- */
-function loadMore(){
-  if (LOADING) return;
-  LOADING = true;
-  loader.style.display = "block";
+                PAGE++;
+                LOADING = false;
+                loader.style.display = "none";
+            })
+            .catch(err => {
+                console.error(err);
+                loader.innerText = "Error loading data";
+                LOADING = false;
+            });
+    }
 
-  const url =
-    `https://api.themoviedb.org/3/discover/${CURRENT_TYPE}` +
-    `?api_key=${API}` +
-    `&with_watch_providers=${PROVIDER}` +
-    `&with_watch_monetization_types=flatrate` +
-    `&watch_region=IN` +
-    `&sort_by=popularity.desc` +
-    `&page=${PAGE}`;
-
-  fetch(url)
-    .then(r => r.json())
-    .then(d => {
-      if (!d.results || !d.results.length) {
-        loader.innerText = "No more results";
-        return;
-      }
-
-      d.results.forEach(x => {
-        if (!x.poster_path) return;
-
-        const card = document.createElement("div");
-        card.className = "dk-card";
-        card.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/w342${x.poster_path}">
-          <div class="dk-card-title">${x.title || x.name}</div>
-        `;
-        card.onclick = () =>
-          location.href = `details.html?type=${CURRENT_TYPE}&id=${x.id}`;
-
-        grid.appendChild(card);
-      });
-
-      PAGE++;
-      LOADING = false;
-      loader.style.display = "none";
-    })
-    .catch(err => {
-      console.error(err);
-      loader.innerText = "Error loading data";
-      LOADING = false;
+    /* ---------- INFINITE SCROLL ---------- */
+    window.addEventListener("scroll", () => {
+        if (window.innerHeight + scrollY >= document.body.offsetHeight - 500) {
+            loadMore();
+        }
     });
-}
 
-/* ---------- INFINITE SCROLL ---------- */
-window.addEventListener("scroll",()=>{
-  if (window.innerHeight + scrollY >= document.body.offsetHeight - 300){
+    /* ---------- INIT ---------- */
     loadMore();
-  }
-});
-
-/* ---------- INIT ---------- */
-loadMore();
 </script>
 </body>
 </html>
